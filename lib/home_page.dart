@@ -16,16 +16,15 @@ class HomePage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              // Consumer<DataClass>(builder: (context, data, child) {
-              //   return Text(
-              //     '${data.x}',
-              //     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              //   );
-              // }),
-              Text(Provider.of<DataClass>(context, listen: true).x.toString(),
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              Spacer(),
+              // display counter value
+              Consumer<DataClass>(builder: (context, data, child) {
+                return Text(
+                  '${data.x}',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                );
+              }),
               Text(
                 "Total",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
@@ -40,47 +39,12 @@ class HomePage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 40),
           child: Row(
             children: [
-              // GestureDetector(
-              //   child: Container(
-              //     width: 60,
-              //     height: 60,
-              //     child: Icon(Icons.add),
-              //     decoration: BoxDecoration(
-              //         borderRadius: BorderRadius.circular(10),
-              //         border: Border.all(color: Color(0xFF716f72), width: 1)),
-              //   ),
-              //   onTap: () {
-              //     if (context.read<DataClass>().x >= 5) {
-              //       Get.snackbar("Item", "Can not more than this",
-              //           backgroundColor: Colors.black,
-              //           colorText: Colors.white,
-              //           titleText: Text(
-              //             "Item",
-              //             style: TextStyle(fontSize: 40, color: Colors.white),
-              //           ),
-              //           messageText: Text(
-              //             "Can not be more than this",
-              //             style: TextStyle(fontSize: 20, color: Colors.white),
-              //           ));
-              //     } else {
-              //       Provider.of<DataClass>(context, listen: false).incrementX();
-              //     }
-              //   },
-              // ),
+              // add button
               ElevatedButton(
                   onPressed: () {
-                    if (context.read<DataClass>().x >= 5) {
-                      Get.snackbar("Item", "Can not more than this",
-                          backgroundColor: Colors.black,
-                          colorText: Colors.white,
-                          titleText: Text(
-                            "Item",
-                            style: TextStyle(fontSize: 40, color: Colors.white),
-                          ),
-                          messageText: Text(
-                            "Can not be more than this",
-                            style: TextStyle(fontSize: 20, color: Colors.white),
-                          ));
+                    if (context.read<DataClass>().x > 5) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text("Can only add up to 5.")));
                     } else {
                       Provider.of<DataClass>(context, listen: false)
                           .incrementX();
@@ -98,6 +62,7 @@ class HomePage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
                     children: [
+                      // next page button
                       GestureDetector(
                           onTap: () {
                             Navigator.pushNamed(context, "/second");
